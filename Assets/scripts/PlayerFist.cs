@@ -18,7 +18,8 @@ public class PlayerFist : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(_currentCooldownTimer >= _hitCooldown)
+        if(_currentCooldownTimer < _hitCooldown) { return; }
+        if(collision.gameObject.layer == 3)
         {
             Vector3 enemyHitDirection = Vector3.Reflect(collision.rigidbody.linearVelocity.normalized, collision.GetContact(0).normal);
             collision.rigidbody.linearVelocity = enemyHitDirection * _hitStrength;
