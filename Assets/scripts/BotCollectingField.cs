@@ -16,11 +16,13 @@ public class BotCollectingField : MonoBehaviour
         {
             //Recycle bot logik
             GameModeManager.Instance.IncreaseScore(30);
+            GameModeManager.Instance.AddTime(2);
         }
         if (other.CompareTag("RecycleBotTwo"))
         {
             //Recycle bot 2 logik
             GameModeManager.Instance.IncreaseScore(30);
+            GameModeManager.Instance.AddTime(2);
         }
         if (other.CompareTag("DamagedBot"))
         {
