@@ -1,9 +1,20 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameModeManager : MonoBehaviour
 {
     public static GameModeManager Instance;
+
+    [SerializeField] int score = 0;
+
+    public float CountdownTimer;
+
+    public TMP_Text timeDisplay;
+    public TMP_Text scoreDisplay;
     void Awake()
     {
         if(Instance == null)
@@ -14,7 +25,16 @@ public class GameModeManager : MonoBehaviour
     }
     void Update()
     {
-
+        if (CountdownTimer > 0)
+        {
+            CountdownTimer -= Time.deltaTime;
+        }
+        if (CountdownTimer < 0)
+        {
+            GameOver();
+            CountdownTimer = 0;
+        }
+        timeDisplay.text = Mathf.RoundToInt(CountdownTimer).ToString();
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
     {
@@ -29,5 +49,31 @@ public class GameModeManager : MonoBehaviour
     void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void IncreaseScore(int points)
+    {
+        score += points;
+        scoreDisplay.text = score.ToString();
+    }
+
+    public void DecreaseScore(int points)
+    {
+        score -= points;
+        scoreDisplay.text = score.ToString();
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game is over!");
+        List<EnemyDroid> allBots = GameObject.FindObjectsByType<EnemyDroid>(FindObjectsSortMode.None).ToList<EnemyDroid>();
+        foreach (EnemyDroid enemy in allBots)
+        {
+            enemy.enabled = false;
+            //enemy.gameObject.SetActive(false); 
+            enemy.gameObject.GetComponent<Rigidbody>().useGravity = true;
+
+        }
+        Debug.Log($"Your Score: {score}");
     }
 }

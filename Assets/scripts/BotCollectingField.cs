@@ -15,18 +15,22 @@ public class BotCollectingField : MonoBehaviour
         if (other.CompareTag("RecycleBot"))
         {
             //Recycle bot logik
+            GameModeManager.Instance.IncreaseScore(30);
         }
         if (other.CompareTag("RecycleBotTwo"))
         {
             //Recycle bot 2 logik
+            GameModeManager.Instance.IncreaseScore(30);
         }
         if (other.CompareTag("DamagedBot"))
         {
             //Damaged bot logik
+            GameModeManager.Instance.DecreaseScore(10);
         }
         if (other.CompareTag("DefectBot"))
         {
             //Defect bot logik
+            GameModeManager.Instance.DecreaseScore(15);
         }
         other.gameObject.GetComponent<EnemyDroid>().enabled = false;
         other.gameObject.GetComponent<Rigidbody>().useGravity = true;
