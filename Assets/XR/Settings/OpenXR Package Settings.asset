@@ -519,9 +519,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0ebc320a151d3408ea1e9fce54d40e, type: 3}
   m_Name: OpenXR Package Settings
   m_EditorClassIdentifier: 
-  Keys: 01000000
+  Keys: 0100000007000000
   Values:
   - {fileID: 7610968032940518811}
+  - {fileID: 2665825815263894434}
 --- !u!114 &196535577598806008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -850,6 +851,59 @@ MonoBehaviour:
   priority: 0
   required: 0
   m_SuppressVisibility: 0
+--- !u!114 &2665825815263894434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a1f07dc5afe854f9f12a4194aca3fb, type: 3}
+  m_Name: Android
+  m_EditorClassIdentifier: 
+  features:
+  - {fileID: 2288697281859997200}
+  - {fileID: -5557140610340500620}
+  - {fileID: 4633788134153877111}
+  - {fileID: 2892582087373587725}
+  - {fileID: 8265600050977876410}
+  - {fileID: -225604367628429814}
+  - {fileID: 7443103242501836760}
+  - {fileID: -2155969956975663862}
+  - {fileID: -8052216202646758034}
+  - {fileID: 5231865865840309979}
+  - {fileID: 6363609807544560125}
+  - {fileID: -3326790106048231096}
+  - {fileID: 1507987111191193473}
+  - {fileID: 2371348512776223966}
+  - {fileID: 1842551159184801149}
+  - {fileID: -1809938567347546770}
+  - {fileID: 8104048196189340278}
+  - {fileID: 4146435647330603529}
+  - {fileID: 668359493978947984}
+  - {fileID: -7961475107873495135}
+  - {fileID: -5509514444301983240}
+  - {fileID: 6156875418222381801}
+  - {fileID: 2069473164396676108}
+  - {fileID: -3574240349788799294}
+  - {fileID: 5788453118987161042}
+  - {fileID: -8600803881274560290}
+  - {fileID: 2150214977630987099}
+  - {fileID: -3829584422831706100}
+  - {fileID: 7143376390506832990}
+  - {fileID: 5630753736291496929}
+  m_renderMode: 1
+  m_latencyOptimization: 0
+  m_autoColorSubmissionMode: 1
+  m_colorSubmissionModes:
+    m_List: 00000000
+  m_depthSubmissionMode: 0
+  m_spacewarpMotionVectorTextureFormat: 0
+  m_optimizeBufferDiscards: 0
+  m_symmetricProjection: 0
+  m_foveatedRenderingApi: 0
 --- !u!114 &2782459073818008888
 MonoBehaviour:
   m_ObjectHideFlags: 0
