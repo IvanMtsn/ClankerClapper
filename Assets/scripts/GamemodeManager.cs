@@ -73,8 +73,9 @@ public class GameModeManager : MonoBehaviour
     public void LoseHeart(int hearts)
     {
         health -= hearts;
-        if(health < 0)
+        if(health == 0)
         {
+            CountdownTimer = 0;
             GameOver();
         }
     }
