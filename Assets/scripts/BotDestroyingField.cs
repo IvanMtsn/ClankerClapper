@@ -28,11 +28,13 @@ public class BotDestroyingField : MonoBehaviour
         {
             //Damaged bot logik
             GameModeManager.Instance.IncreaseScore(30);
+            GameModeManager.Instance.AddTime(2);
         }
         if (other.CompareTag("DefectBot"))
         {
             //Defect bot logik
             GameModeManager.Instance.IncreaseScore(30);
+            GameModeManager.Instance.AddTime(2);
         }
         other.gameObject.GetComponent<EnemyDroid>().enabled = false;
         other.gameObject.GetComponent<Rigidbody>().useGravity = true;

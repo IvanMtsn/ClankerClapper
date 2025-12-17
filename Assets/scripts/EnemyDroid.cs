@@ -47,4 +47,12 @@ public class EnemyDroid : MonoBehaviour
         Destroy(gameObject);
         _spawner.ReduceEnemyCount();
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            GameModeManager.Instance.LoseHeart(1);
+        }
+    }
 }

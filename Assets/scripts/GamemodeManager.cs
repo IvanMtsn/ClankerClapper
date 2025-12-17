@@ -10,8 +10,11 @@ public class GameModeManager : MonoBehaviour
     public static GameModeManager Instance;
 
     [SerializeField] int score = 0;
+    [SerializeField] Scene levelScene;
+    [SerializeField] GameObject gameOverUI;
 
     public float CountdownTimer;
+    public int health;
 
     public TMP_Text timeDisplay;
     public TMP_Text scoreDisplay;
@@ -63,6 +66,25 @@ public class GameModeManager : MonoBehaviour
         scoreDisplay.text = score.ToString();
     }
 
+    public void AddTime(int sek)
+    {
+        CountdownTimer += sek;
+    }
+
+    public void LoseHeart(int hearts)
+    {
+        health -= hearts;
+        if(health < 0)
+        {
+            GameOver();
+        }
+    }
+
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(levelScene.name);
+    }
+
     public void GameOver()
     {
         Debug.Log("Game is over!");
@@ -70,10 +92,11 @@ public class GameModeManager : MonoBehaviour
         foreach (EnemyDroid enemy in allBots)
         {
             enemy.enabled = false;
-            //enemy.gameObject.SetActive(false); 
-            enemy.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            enemy.gameObject.SetActive(false);
+            //enemy.gameObject.GetComponent<Rigidbody>().useGravity = true;
 
         }
+        gameOverUI.SetActive(true);
         Debug.Log($"Your Score: {score}");
     }
 }
