@@ -1,4 +1,3 @@
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class EnemyDroid : MonoBehaviour
@@ -9,7 +8,7 @@ public class EnemyDroid : MonoBehaviour
     public bool IsStunned = false;
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.FindGameObjectWithTag("MainCamera").transform;
         _rb = GetComponent<Rigidbody>();
     }
 
