@@ -23,6 +23,7 @@ public class PlayerFist : MonoBehaviour
         {
             Vector3 enemyHitDirection = Vector3.Reflect(collision.rigidbody.linearVelocity.normalized, collision.GetContact(0).normal);
             collision.rigidbody.linearVelocity = enemyHitDirection * _hitStrength;
+            collision.gameObject.GetComponent<EnemyDroid>().StunEnemy();
             _currentCooldownTimer = 0;
         }
     }
