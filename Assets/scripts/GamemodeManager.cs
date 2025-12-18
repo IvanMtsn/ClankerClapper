@@ -10,7 +10,6 @@ public class GameModeManager : MonoBehaviour
     public static GameModeManager Instance;
 
     [SerializeField] int score = 0;
-    [SerializeField] Scene levelScene;
     [SerializeField] GameObject gameOverUI;
 
     public float CountdownTimer;
@@ -74,15 +73,16 @@ public class GameModeManager : MonoBehaviour
     public void LoseHeart(int hearts)
     {
         health -= hearts;
-        if(health < 0)
+        if(health == 0)
         {
+            CountdownTimer = 0;
             GameOver();
         }
     }
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(levelScene.name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void GameOver()
