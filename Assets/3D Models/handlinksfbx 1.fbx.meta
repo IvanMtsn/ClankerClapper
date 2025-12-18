@@ -3,7 +3,12 @@ guid: c1280532d39d2f6428978214943680bc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hands_texture
+    second: {fileID: 2800000, guid: 182bb312a0f7e8744ab536e1fdc7d66b, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

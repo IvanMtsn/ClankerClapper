@@ -584,7 +584,7 @@ MonoBehaviour:
   levelScene:
     m_Handle: 0
   gameOverUI: {fileID: 1780684987}
-  CountdownTimer: 30
+  CountdownTimer: 90
   health: 5
   timeDisplay: {fileID: 1595430571}
   scoreDisplay: {fileID: 858345928}
@@ -730,8 +730,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.09, y: 0.09, z: 0.09}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.09, y: 0.16, z: 0.23}
+  m_Center: {x: 0, y: 0.04, z: -0.04}
 --- !u!114 &481251986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,6 +1551,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: MainCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 828042771549525147, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 909984b7349d2824589f4a20f4f637eb, type: 2}
     - target: {fileID: 950175637189515454, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1691,6 +1695,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7634941337736553285, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 909984b7349d2824589f4a20f4f637eb, type: 2}
     - target: {fileID: 7800078425756481869, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -2286,8 +2294,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.09, y: 0.09, z: 0.09}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.09, y: 0.17, z: 0.25}
+  m_Center: {x: 0, y: 0.05, z: -0.04}
 --- !u!1 &1780684987
 GameObject:
   m_ObjectHideFlags: 0
