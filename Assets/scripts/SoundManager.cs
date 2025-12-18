@@ -1,27 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
- public static SoundManager instance;
-
-    [SerializeField] private AudioMixerGroup soundFXGroup;
-
+    public static SoundManager instance;
+    [SerializeField] private AudioClip backgroundMusicClip;
+    private AudioSource bgmSource;
     private AudioSource a;
-
     private void Awake()
     {
         if (instance == null)
             instance = this;
 
-        a = gameObject.AddComponent<AudioSource>();
-        a.outputAudioMixerGroup = soundFXGroup;
+        a = GetComponent<AudioSource>();
+
+
+        bgmSource = gameObject.AddComponent<AudioSource>();
+        bgmSource.clip = backgroundMusicClip;
+        bgmSource.loop = true;
+        bgmSource.playOnAwake = false;
     }
 
-    public void PlaySoundClip(AudioClip audioClip)
+    public void PlayBGM()
     {
-        a.PlayOneShot(audioClip);
+        if (!bgmSource.isPlaying)
+        {
+            bgmSource.Play();
+        }
     }
+
+    public void StopBGM()
+    {
+        if (bgmSource.isPlaying)
+        {
+            bgmSource.Stop();
+        }
+    }
+
+    public void PauseBGM()
+    {
+        if (bgmSource.isPlaying)
+        {
+            bgmSource.Pause();
+        }
+    }
+
+    public void ResumeBGM()
+    {
+        if (!bgmSource.isPlaying)
+        {
+            bgmSource.UnPause();
+        }
+    }
+
+
 }

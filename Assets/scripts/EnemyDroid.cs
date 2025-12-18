@@ -1,4 +1,3 @@
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class EnemyDroid : MonoBehaviour
@@ -6,17 +5,17 @@ public class EnemyDroid : MonoBehaviour
     EnemySpawner _spawner;
     Transform _player;
     Rigidbody _rb;
-    public bool IsStunned = false;
+    bool _isStunned = false;
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.FindGameObjectWithTag("MainCamera").transform;
         _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!IsStunned)
+        if (!_isStunned)
         {
             transform.LookAt(_player);
 
@@ -24,11 +23,20 @@ public class EnemyDroid : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!IsStunned)
+        if (!_isStunned)
         {
             _rb.linearVelocity = _player.position - transform.position;
 
         }
+    }
+    public void StunEnemy()
+    {
+        _isStunned=true;
+        Invoke("ResetStun", 2);
+    }
+    void ResetStun()
+    {
+        _isStunned=false;
     }
     public void SetSpawner(EnemySpawner spawner)
     {
@@ -38,5 +46,13 @@ public class EnemyDroid : MonoBehaviour
     {
         Destroy(gameObject);
         _spawner.ReduceEnemyCount();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            GameModeManager.Instance.LoseHeart(1);
+        }
     }
 }
