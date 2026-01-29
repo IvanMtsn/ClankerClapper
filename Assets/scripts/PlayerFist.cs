@@ -25,6 +25,7 @@ public class PlayerFist : MonoBehaviour
             collision.rigidbody.linearVelocity = enemyHitDirection * _hitStrength;
             collision.gameObject.GetComponent<EnemyDroid>().StunEnemy();
             _currentCooldownTimer = 0;
+            SoundManager.instance.PlayBotHitSound();
         }
     }
 }

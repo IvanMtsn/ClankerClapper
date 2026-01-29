@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public static SoundManager instance;
-    [SerializeField] private AudioClip backgroundMusicClip;
-    private AudioSource bgmSource;
+    [SerializeField] private AudioSource m_AudioSource;
+    [SerializeField] private AudioClip BotHitSound;
+    [SerializeField] private AudioClip RobotDestroy;
+    [SerializeField] private AudioClip RobotRambling;
+    [SerializeField] private float playInterval = 5f;
     private AudioSource a;
     private void Awake()
     {
@@ -12,45 +16,18 @@ public class SoundManager : MonoBehaviour
             instance = this;
 
         a = GetComponent<AudioSource>();
-
-
-        bgmSource = gameObject.AddComponent<AudioSource>();
-        bgmSource.clip = backgroundMusicClip;
-        bgmSource.loop = true;
-        bgmSource.playOnAwake = false;
     }
 
-    public void PlayBGM()
+    public void PlaySoundCLip(AudioClip audioclip, float volume)
     {
-        if (!bgmSource.isPlaying)
-        {
-            bgmSource.Play();
-        }
+        a.PlayOneShot(audioclip, volume);
     }
 
-    public void StopBGM()
+    public void PlayBotHitSound()
     {
-        if (bgmSource.isPlaying)
-        {
-            bgmSource.Stop();
-        }
+        a.PlayOneShot(BotHitSound, 1f);
     }
 
-    public void PauseBGM()
-    {
-        if (bgmSource.isPlaying)
-        {
-            bgmSource.Pause();
-        }
-    }
-
-    public void ResumeBGM()
-    {
-        if (!bgmSource.isPlaying)
-        {
-            bgmSource.UnPause();
-        }
-    }
-
+    
 
 }
