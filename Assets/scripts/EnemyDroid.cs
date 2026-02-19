@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyDroid : MonoBehaviour
 {
+    [SerializeField] AudioSource _audioSource;
     EnemySpawner _spawner;
     Transform _player;
     Rigidbody _rb;
@@ -10,6 +11,8 @@ public class EnemyDroid : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag("MainCamera").transform;
         _rb = GetComponent<Rigidbody>();
+        SoundManager.instance.StartRobotMove(_audioSource);
+
     }
 
     // Update is called once per frame
@@ -31,12 +34,18 @@ public class EnemyDroid : MonoBehaviour
     }
     public void StunEnemy()
     {
-        _isStunned=true;
+       
+        SoundManager.instance.StartRobotRambling(_audioSource);
+        _isStunned =true;
         Invoke("ResetStun", 2);
+        _audioSource.Stop();
+
+        
     }
     void ResetStun()
     {
         _isStunned=false;
+        _audioSource.Pause();
     }
     public void SetSpawner(EnemySpawner spawner)
     {
@@ -53,6 +62,7 @@ public class EnemyDroid : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             GameModeManager.Instance.LoseHeart(1);
+            SoundManager.instance.PlayPlayerHurtSound();   
         }
     }
 }

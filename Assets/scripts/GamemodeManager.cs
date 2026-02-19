@@ -57,12 +57,14 @@ public class GameModeManager : MonoBehaviour
     {
         score += points;
         scoreDisplay.text = score.ToString();
+        SoundManager.instance.PlayScoreSound();
     }
 
     public void DecreaseScore(int points)
     {
         score -= points;
         scoreDisplay.text = score.ToString();
+        SoundManager.instance.PlayFehlerSound();
     }
 
     public void AddTime(int sek)
