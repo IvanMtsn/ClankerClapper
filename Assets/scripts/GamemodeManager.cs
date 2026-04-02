@@ -1,9 +1,13 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameModeManager : MonoBehaviour
 {
@@ -11,12 +15,20 @@ public class GameModeManager : MonoBehaviour
 
     [SerializeField] int score = 0;
     [SerializeField] GameObject gameOverUI;
+    [SerializeField] GameObject HealthDisplay;
+    [SerializeField] GameObject heart;
+    [SerializeField] GameObject spawner;
+    [SerializeField] GameObject Bloodscreen;
 
     public float CountdownTimer;
     public int health;
+    [SerializeField] float InvincTime;
+    public float InvincTimer { private set; get; }
 
     public TMP_Text timeDisplay;
     public TMP_Text scoreDisplay;
+
+    private RectTransform orgHealthRect;
     void Awake()
     {
         if(Instance == null)
@@ -24,6 +36,8 @@ public class GameModeManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        orgHealthRect = HealthDisplay.GetComponent<RectTransform>();
+        DisplayHealth();
     }
     void Update()
     {
@@ -72,14 +86,32 @@ public class GameModeManager : MonoBehaviour
         CountdownTimer += sek;
     }
 
-    public void LoseHeart(int hearts)
+    public async Task LoseHeart(int hearts)
     {
+        Color imgCol = Bloodscreen.GetComponent<Image>().color;
+        imgCol = new Color(imgCol.r, imgCol.g, imgCol.b, 1f);
+        Bloodscreen.GetComponent<Image>().color = imgCol;
+
+        InvincTimer = InvincTime; 
+        Debug.Log("Aua");
         health -= hearts;
-        if(health == 0)
+        DisplayHealth();
+        if(health <= 0)
         {
             CountdownTimer = 0;
             GameOver();
         }
+        while(InvincTimer > 0)
+        {
+            InvincTimer -= Time.deltaTime;
+            imgCol = new Color(imgCol.r, imgCol.g, imgCol.b, InvincTimer / InvincTime);
+            Bloodscreen.GetComponent<Image>().color = imgCol;
+
+            await Task.Yield();
+        }
+        imgCol = new Color(imgCol.r, imgCol.g, imgCol.b, 0f);
+        Bloodscreen.GetComponent<Image>().color = imgCol;
+
     }
 
     public void LoadLevel()
@@ -89,16 +121,46 @@ public class GameModeManager : MonoBehaviour
 
     public void GameOver()
     {
+        InvincTimer = 0f;
         Debug.Log("Game is over!");
         List<EnemyDroid> allBots = GameObject.FindObjectsByType<EnemyDroid>(FindObjectsSortMode.None).ToList<EnemyDroid>();
+        spawner.GetComponent<EnemySpawner>().CanSpawnEnemies = false;
         foreach (EnemyDroid enemy in allBots)
         {
-            enemy.enabled = false;
-            enemy.gameObject.SetActive(false);
-            //enemy.gameObject.GetComponent<Rigidbody>().useGravity = true;
-
+            StartCoroutine("DeactivateBot", enemy);
         }
         gameOverUI.SetActive(true);
         Debug.Log($"Your Score: {score}");
+    }
+
+    public IEnumerator DeactivateBot(EnemyDroid enemy)
+    {
+        enemy.enabled = false;
+        enemy.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        yield return new WaitForSeconds(5);
+        enemy.gameObject.SetActive(false);
+    }
+
+    public void DisplayHealth()
+    {
+        RectTransform HealthRect = HealthDisplay.GetComponent<RectTransform>();
+        HealthRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, orgHealthRect.sizeDelta.y);
+        foreach (Transform t in HealthDisplay.transform)
+        {
+            Destroy(t.gameObject);
+        }
+
+        foreach (Transform t in HealthDisplay.transform)
+        {
+            Destroy(t.gameObject);
+        }
+
+        for (int i = 0; i < health; i++)
+        {
+            GameObject newHeart = Instantiate(heart);
+            RectTransform rect = newHeart.GetComponent<RectTransform>();
+            rect.SetParent(HealthDisplay.transform, false);
+            rect.localScale = Vector3.one; // wichtig!
+        }
     }
 }

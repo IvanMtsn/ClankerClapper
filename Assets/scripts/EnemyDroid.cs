@@ -57,12 +57,12 @@ public class EnemyDroid : MonoBehaviour
         _spawner.ReduceEnemyCount();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private async void OnCollisionStay(Collision collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.CompareTag("Player") && GameModeManager.Instance.InvincTimer <= 0)
         {
-            GameModeManager.Instance.LoseHeart(1);
-            SoundManager.instance.PlayPlayerHurtSound();   
+            SoundManager.instance.PlayPlayerHurtSound();
+            await GameModeManager.Instance.LoseHeart(1);
         }
     }
 }
