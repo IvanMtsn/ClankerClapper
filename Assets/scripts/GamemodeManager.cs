@@ -21,9 +21,11 @@ public class GameModeManager : MonoBehaviour
     [SerializeField] GameObject Bloodscreen;
 
     public float CountdownTimer;
-    public int health;
+    public int maxHealth;
+    private int health;
     [SerializeField] float InvincTime;
     public float InvincTimer { private set; get; }
+    public bool displayBlood;
 
     public TMP_Text timeDisplay;
     public TMP_Text scoreDisplay;
@@ -37,6 +39,7 @@ public class GameModeManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         orgHealthRect = HealthDisplay.GetComponent<RectTransform>();
+        health = maxHealth;
         DisplayHealth();
     }
     void Update()
@@ -88,11 +91,8 @@ public class GameModeManager : MonoBehaviour
 
     public async Task LoseHeart(int hearts)
     {
-        Color imgCol = Bloodscreen.GetComponent<Image>().color;
-        imgCol = new Color(imgCol.r, imgCol.g, imgCol.b, 1f);
-        Bloodscreen.GetComponent<Image>().color = imgCol;
-
-        InvincTimer = InvincTime; 
+        InvincTimer = InvincTime;
+        if (displayBlood) ShowBlood();
         Debug.Log("Aua");
         health -= hearts;
         DisplayHealth();
@@ -104,14 +104,24 @@ public class GameModeManager : MonoBehaviour
         while(InvincTimer > 0)
         {
             InvincTimer -= Time.deltaTime;
+            await Task.Yield();
+        }
+    }
+
+    private async void ShowBlood()
+    {
+        Color imgCol = Bloodscreen.GetComponent<Image>().color;
+        imgCol = new Color(imgCol.r, imgCol.g, imgCol.b, 1f);
+        Bloodscreen.GetComponent<Image>().color = imgCol;
+
+        while (InvincTimer > 0)
+        {
             imgCol = new Color(imgCol.r, imgCol.g, imgCol.b, InvincTimer / InvincTime);
             Bloodscreen.GetComponent<Image>().color = imgCol;
-
             await Task.Yield();
         }
         imgCol = new Color(imgCol.r, imgCol.g, imgCol.b, 0f);
         Bloodscreen.GetComponent<Image>().color = imgCol;
-
     }
 
     public void LoadLevel()
@@ -150,17 +160,18 @@ public class GameModeManager : MonoBehaviour
             Destroy(t.gameObject);
         }
 
-        foreach (Transform t in HealthDisplay.transform)
-        {
-            Destroy(t.gameObject);
-        }
-
-        for (int i = 0; i < health; i++)
+        for (int i = 0; i < maxHealth; i++)
         {
             GameObject newHeart = Instantiate(heart);
             RectTransform rect = newHeart.GetComponent<RectTransform>();
             rect.SetParent(HealthDisplay.transform, false);
-            rect.localScale = Vector3.one; // wichtig!
+            rect.localScale = Vector3.one;
+            if(i+1 > health)
+            {
+                Color color = newHeart.GetComponent<Image>().color;
+                color = new Color(color.r, color.g, color.b, 0.5f);
+                newHeart.GetComponent<Image>().color = color;
+            }
         }
     }
 }
