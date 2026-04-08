@@ -25,7 +25,7 @@ public class GameModeManager : MonoBehaviour
     private int health;
     [SerializeField] float InvincTime;
     public float InvincTimer { private set; get; }
-    public bool displayBlood;
+    public bool displayBlood, endlessMode;
 
     public TMP_Text timeDisplay;
     public TMP_Text scoreDisplay;
@@ -44,16 +44,19 @@ public class GameModeManager : MonoBehaviour
     }
     void Update()
     {
-        if (CountdownTimer > 0)
+        if (!endlessMode)
         {
-            CountdownTimer -= Time.deltaTime;
+            if (CountdownTimer > 0)
+            {
+                CountdownTimer -= Time.deltaTime;
+            }
+            if (CountdownTimer < 0)
+            {
+                GameOver();
+                CountdownTimer = 0;
+            }
+            timeDisplay.text = Mathf.RoundToInt(CountdownTimer).ToString();
         }
-        if (CountdownTimer < 0)
-        {
-            GameOver();
-            CountdownTimer = 0;
-        }
-        timeDisplay.text = Mathf.RoundToInt(CountdownTimer).ToString();
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
     {
