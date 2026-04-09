@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemyDroid : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class EnemyDroid : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("MainCamera").transform;
         _rb = GetComponent<Rigidbody>();
         SoundManager.instance.StartRobotMove(_audioSource);
-
+        GetComponent<Animator>().enabled = false;
     }
 
     // Update is called once per frame
@@ -21,7 +22,11 @@ public class EnemyDroid : MonoBehaviour
         if (!_isStunned)
         {
             transform.LookAt(_player);
-
+            //NUR DEBUG
+            if (Keyboard.current.lKey.wasPressedThisFrame)
+            {
+                StunEnemy();
+            }
         }
     }
     private void FixedUpdate()
@@ -39,13 +44,15 @@ public class EnemyDroid : MonoBehaviour
         _isStunned =true;
         Invoke("ResetStun", 2);
         _audioSource.Stop();
+        GetComponent<Animator>().enabled = true;
+        GetComponent<Animator>().SetTrigger("hit");
 
-        
     }
     void ResetStun()
     {
         _isStunned=false;
         _audioSource.Pause();
+        GetComponent<Animator>().enabled = false;
     }
     public void SetSpawner(EnemySpawner spawner)
     {
