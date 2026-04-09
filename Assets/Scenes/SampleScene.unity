@@ -900,7 +900,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1595430570}
-  - {fileID: 793646662}
   - {fileID: 1505292510}
   - {fileID: 858345927}
   - {fileID: 13056709}
@@ -1193,11 +1192,11 @@ Transform:
   m_GameObject: {fileID: 793646661}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.011, y: 0.35, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0}
+  m_LocalPosition: {x: -2.2, y: 4, z: 0.028}
+  m_LocalScale: {x: 6, y: 6, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 472672322}
+  m_Father: {fileID: 1595430570}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &793646663
 SpriteRenderer:
@@ -2855,10 +2854,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3b590af289ce64c9af3829f29c8edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skyboxes:
-  - {fileID: 2100000, guid: e016e5b8add860a41b81d16471efbe90, type: 2}
-  - {fileID: 2100000, guid: a2fb5cf19a213ab40828fc2e3aaac7dc, type: 2}
-  - {fileID: 2100000, guid: 1a45b37c8b4e2da43a750e0e4d97bb6f, type: 2}
 --- !u!4 &1511611712
 Transform:
   m_ObjectHideFlags: 0
@@ -3115,15 +3110,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595430569}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.028}
   m_LocalScale: {x: 0.005, y: 0.005, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 793646662}
   m_Father: {fileID: 472672322}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.1}
+  m_AnchoredPosition: {x: 0, y: -0.12}
   m_SizeDelta: {x: 50, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1595430571
