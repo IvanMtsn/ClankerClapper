@@ -62,7 +62,7 @@ public class GameModeManager : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name == "SampleScene") { Debug.Log("Waha"); }
         else { Debug.Log("nop"); }
-        if (MainMenu.Instance.endless)
+        if (MainMenu.Instance.endless2)
         {
             GameModeManager.Instance.endlessMode = true;
             GameModeManager.Instance.timeDisplay.gameObject.SetActive(false);
